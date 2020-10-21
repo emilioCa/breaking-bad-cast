@@ -1,9 +1,16 @@
-Breaking Bad Cast 
+## Breaking Bad Cast 
 
-App creada en un video de Traversy Media donde se utiliza la API de breaking bad.
-Es una aplicación sencilla hecha con create-react-app.
+App creada en un video de Traversy Media.
 
-Instalación de los módulos de node:
+Es una aplicación sencilla creada con create-react-app.
+
+## URL API
+
+https://www.breakingbadapi.com/api/
+
+## Instalación 
+
+node_modules:
 
 ```
 npm install
