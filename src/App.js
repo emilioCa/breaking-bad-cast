@@ -1,32 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+
 import Header from './components/ui/Header';
-import CharacterGrid from './components/characters/CharacterGrid';
 import Search from './components/ui/Search';
+import { SwitchPanel } from './components/ui/SwitchPanel';
+import CharacterGrid from './components/characters/CharacterGrid';
+import { useFetch } from './hooks/useFetch';
 
 import './App.css';
+import bb from './img/bg.jpg';
+import bcs from './img/bcs_bg.jpg';
+
+const urlService = 'https://www.breakingbadapi.com/api/';
 
 const App = () => {
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [query, setQuery] = useState('');
+  const [search, setSearch] = useState('');
+  const [serieShow, setSerieShow] = useState('BB');
+
+  const { data: characters, loading, error } = useFetch(`${urlService}characters?name=${search}`);
+
+  const changeWallpapper = (show) => {
+    (show === 'BB') ?
+      document.body.style.background = `#000 url(${bb}) no-repeat center center/cover`
+      :
+      document.body.style.background = `#D7BD00 url(${bcs}) no-repeat center center/cover`
+  }
+
+  // const [state, setState] = useState({data: null, loading: true, error: null});
+  // const loadCharacters = () => {
+  //   setState({data: characters, loading: loading, error: error});
+  // }
 
   useEffect(() => {
-    const fetchItems = async () => {
-      const result = await axios(`https://www.breakingbadapi.com/api/characters?name=${query}`)
-      // console.log(result.data);      
-      setItems(result.data)
-      setIsLoading(false)
-    }
+    changeWallpapper(serieShow);
+    // loadCharacters();
+  }, [serieShow]);
 
-    fetchItems();
-  }, [query])
+  useEffect(() => {
+
+  }, [search])
 
   return (
     <div className="container">
-      <Header />
-      <Search getQuery={(q) => setQuery(q)} />
-      <CharacterGrid isLoading={isLoading} items={items} />
+      <SwitchPanel setSerieShow={setSerieShow} />
+      <Header serieShow={serieShow} />
+      <Search getQuery={(q) => setSearch(q)} />
+      {
+        (error) ?
+          (
+            <h1>Error loading data... </h1>
+          ) :
+          (
+            <CharacterGrid isLoading={loading} characters={characters} />
+          )
+      }
     </div>
   );
 }

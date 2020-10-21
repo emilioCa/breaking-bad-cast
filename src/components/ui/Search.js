@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-const Search = ({getQuery}) => {
-    const [text, setText] = useState('')
-    
+const Search = ({ getQuery }) => {
+    const [text, setText] = useState('');
+
     const onChange = (q) => {
         setText(q)
         getQuery(q)
@@ -24,4 +24,4 @@ const Search = ({getQuery}) => {
     )
 }
 
-export default Search
+export default Search;

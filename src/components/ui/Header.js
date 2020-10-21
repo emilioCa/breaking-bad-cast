@@ -1,10 +1,20 @@
-import React from 'react'
-import logo from '../../img/logo.png';
+import React from 'react';
 
-const Header = () => {
+import bb from '../../img/logo.png';
+import bcs from '../../img/bcs.png';
+
+const Header = ({ serieShow }) => {
     return (
         <header className='center'>
-            <img src={logo} alt='' />
+            {
+                (serieShow === 'BB') ?
+                    (
+                        <img src={bb} alt='' />
+                    ) :
+                    (
+                        <img src={bcs} alt='' />
+                    )
+            }
         </header>
     )
 }
